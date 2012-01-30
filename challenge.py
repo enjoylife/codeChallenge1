@@ -1,15 +1,8 @@
 from itertools import combinations as nCr
+import timeit
 import glob
 import subprocess
 import random
-
-def file_len(fname):
-    p = subprocess.Popen(['wc', '-l', fname], stdout=subprocess.PIPE, 
-                                              stderr=subprocess.PIPE)
-    result, err = p.communicate()
-    if p.returncode != 0:
-        raise IOError(err)
-    return int(result.strip().split()[0])
 
 def random_combination(iterable, r):
     "Random selection using itertools.combinations(iterable, r)"
@@ -26,10 +19,29 @@ def combo(pattern):
             combos = nCr(data,2)
             for c in combos:
                 print c
+def bufcount(filename):
+    """ Count the number of Lines in a file
 
+    Credit: Mykola Kharechko http://stackoverflow.com/a/845151 """
+    f = open(filename)
+    lines = 0
+    buf_size = 1024 * 1024
+    read_f = f.read # loop optimization
+
+    buf = read_f(buf_size)
+    while buf:
+        lines += buf.count('\n')
+        buf = read_f(buf_size)
+
+    return lines
 
 if __name__=='__main__':
-    print random_combination(open('m.txt','r'),2)
+    t = timeit.Timer("bufcount('l.txt')", "from __main__ import bufcount")
+    print t.timeit(100)
+
+
+    #print file_len('m.txt')
+    #print random_combination(open('m.txt','r'),2)
 
 
 
