@@ -1,3 +1,5 @@
+## Matthew Clemens, Sierra College 2012
+
 import time
 import glob
 import subprocess
@@ -5,6 +7,13 @@ import random
 from itertools import cycle, islice,  combinations as nCr
 
 def print_timing(func):
+    """ Simple wrapper to help with finding out running times of Functions
+
+    To use: 
+    @print_timing
+    def Your func:
+        pass  """
+
     def wrapper(*arg):
         t1 = time.time()
         res = func(*arg)
@@ -15,6 +24,8 @@ def print_timing(func):
 
 @print_timing
 def party_combo(iterable):
+    """ Main logic for Challenge. . . python magic """
+
     for name in nCr(iterable,2):
        print name 
 
@@ -45,10 +56,13 @@ def bufcount(filename):
 
 if __name__=='__main__':
     
-    first = open('shortdata.txt', 'r')
-    print 'Now creating List'
-    party_combo(first)
-    #print random_combination(first,2)
-    first.close()
+    with open('shortdata.txt', 'r') as data:
+        party_combo(data)
+        print '\ncreated list, using %s  names' % bufcount('shortdata.txt')
+
+        print '\n\n Some Random combos for fun'
+        for fun in range(0,5):
+            data.seek(0)
+            print random_combination(data,2)
 
 

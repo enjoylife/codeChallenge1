@@ -1,5 +1,7 @@
-import glob
+## USED ONLY FOR SIMPLE DATA CLEANUP, NOT USED IN ACTUALLY CHALLENGE
+## Matthew Clemens, Sierra College 2012
 
+import glob
 def clean_data(files, newfile):
     """ Helper to clean the data """
 
