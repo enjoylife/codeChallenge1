@@ -27,7 +27,7 @@ def party_combo(iterable):
     """ Main logic for Challenge. . . python magic """
 
     for name in nCr(iterable,2):
-       print name 
+       print name[0].strip(), name[1].strip() 
 
 
 def random_combination(iterable, r):
